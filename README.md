@@ -1,5 +1,10 @@
 # ALP_DEMO
 ALP Demo
+
+You should have a count in SCP to access Web IDE
+Register https://register.sapdevcenter.com/SUPSignForms/ to access the backend OData Service.
+Add the above-registered system as a destination in your SCP account. You can use below destination configuration for your reference
+
 Destination Configure in NEO SCP , Save below script to TXT file and upload it to SCP destination
 #
 #Fri Aug 09 05:54:52 UTC 2019
