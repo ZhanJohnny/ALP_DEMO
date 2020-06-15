@@ -1,0 +1,16 @@
+<mvc:View controllerName="IBSO.ALP_DEMO.controller.App2" displayBlock="true" 
+    xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Table visible="true" id="ID_DEMO" items="{ path:'demoModel>/results',factory:'.myFactory'}">
+		<columns>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Country"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="City"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Amount"/>
+			</Column>
+		</columns>
+	</Table>
+</mvc:View>
