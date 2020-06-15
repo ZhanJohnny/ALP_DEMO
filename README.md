@@ -8,6 +8,7 @@ Add the above-registered system as a destination in your SCP account. You can us
 Destination Configure in NEO SCP , Save below script to TXT file and upload it to SCP destination
 #
 #Fri Aug 09 05:54:52 UTC 2019
+#
 Description=SAP Gateway Demo System
 Type=HTTP
 TrustAll=true
