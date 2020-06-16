@@ -58,7 +58,7 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App3", {
 			var columnName = oContext.getObject().columnName;
 			return new sap.ui.table.Column({
 				label: columnName,
-				template: columnName,
+				template:columnName,
 				multiLabels: [
 					new sap.m.Label({
 						text: "Contact",

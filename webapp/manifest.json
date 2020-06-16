@@ -207,7 +207,7 @@
 						"showGoButtonOnFilterBar": true,
 						"enableTableFilterInPageVariant": true,
 						"tableType": "ResponsiveTable",
-						"multiSelect": true,
+						"multiSelect": false,
 						"autoHide": true,
 						"smartVariantManagement": true,
 						"filterDefaultsFromSelectionVariant": false,

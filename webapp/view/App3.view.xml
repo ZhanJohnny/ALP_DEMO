@@ -1,4 +1,4 @@
 <mvc:View controllerName="IBSO.ALP_DEMO.controller.App3" displayBlock="true" xmlns:m="sap.m" xmlns:t="sap.ui.table"
 xmlns="sap.ui.commons" 	xmlns:mvc="sap.ui.core.mvc">
-	<t:Table id="DYNTAB" visibleRowCount="20"></t:Table>
+	<t:Table id="DYNTAB" visibleRowCount="20" editable ="true"></t:Table>
 </mvc:View>

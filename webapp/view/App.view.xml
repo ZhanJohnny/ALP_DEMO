@@ -1,16 +1,16 @@
-<!--<mvc:View controllerName="demo.alp.ALPDemo.controller.App" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
-	<Text text="Sample View"/>
-</mvc:View>-->
-<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"	xmlns:m="sap.m" 
-        xmlns:t="sap.ui.table" controllerName="IBSO.ALP_DEMO.controller.App" displayBlock="true">
-	<m:Page id="page" showHeader="true" enableScrolling="false" class="sapUiContentPadding" title="Data Browser">
-		<m:Input placeholder="Enter table name" submit="onSubmit" value="zemp_info" 
-		id="tablename" showValueHelp="true" valueHelpRequest="onSearch"></m:Input>
-		<m:Button id="search" text="Load" press='onLoad' visible="false"></m:Button>
-		<m:Label id="count" text=""></m:Label>
-		<m:content>
-			<t:Table id="idMyTable" visibleRowCount="20" enableSelectAll="false" threshold="15"
-			enableBusyIndicator="true" ariaLabelledBy="title"></t:Table>
-		</m:content>
-	</m:Page>
+<mvc:View controllerName="IBSO.ALP_DEMO.controller.App" displayBlock="true" 
+    xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Table visible="true" id="ID_DEMO" items="{ path:'demoModel>/results',factory:'.myFactory'}">
+		<columns>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Country"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="City"/>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="Amount"/>
+			</Column>
+		</columns>
+	</Table>
 </mvc:View>
