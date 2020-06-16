@@ -179,7 +179,7 @@
 						},
 						"AnalyticalListPageContentViewExtension2": {
 							"className": "sap.ui.core.mvc.View",
-							"viewName": "IBSO.ALP_DEMO.view.App3",
+							"viewName": "IBSO.ALP_DEMO.view.App4",
 							"type": "XML"
 						}
 					}

@@ -1,0 +1,4 @@
+<mvc:View controllerName="IBSO.ALP_DEMO.controller.App4" displayBlock="true" xmlns:m="sap.m" xmlns:t="sap.ui.table"
+xmlns="sap.ui.commons" 	xmlns:mvc="sap.ui.core.mvc">
+	<m:Table id="Dynmtable" ></m:Table>
+</mvc:View>

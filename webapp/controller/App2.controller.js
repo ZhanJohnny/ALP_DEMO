@@ -1,15 +1,6 @@
 sap.ui.controller("IBSO.ALP_DEMO.controller.App2", {
 
 	onInit: function () {
-		var columnData = [{
-			columnName: "supplier"
-		}, {
-			columnName: "street"
-		}, {
-			columnName: "city"
-		}, {
-			columnName: "phone"
-		}];
 
 		var rowData = [{
 			zone: "Europe",
@@ -128,7 +119,7 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App2", {
 			label: new sap.m.Label({
 				text: "total",
 				textAlign: "Center",
-				width:"100%"
+				width: "100%"
 			}),
 			template: new sap.m.Label({
 				text: "{total}"
@@ -218,6 +209,7 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App2", {
 		oTable.bindRows("/");
 		oTable.setEnableGrouping(true);
 		oTable.setGroupBy("zone");
+		oTable.setFooter("Test");
 		sap.ui.getCore().setModel(oModel, "globalModel");
 	}
 });
