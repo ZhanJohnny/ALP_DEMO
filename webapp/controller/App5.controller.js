@@ -101,7 +101,6 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 			return new sap.ui.table.Column({
 				label: columnName,
 				template: columnName,
-				width: "100%",
 				multiLabels: [
 					new sap.m.Label({
 						text: "Contact",
