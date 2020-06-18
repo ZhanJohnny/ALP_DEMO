@@ -172,6 +172,6 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App4", {
 		//oTable.bindRows("/");
 		//oTable.setEnableGrouping(true);
 		//oTable.setGroupBy("zone");
-		sap.ui.getCore().setModel(oModel, "globalModel");
+		sap.ui.getCore().setModel(oModel, "globalModel2");
 	}
 });

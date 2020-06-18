@@ -206,7 +206,7 @@
 						"condensedTableLayout": true,
 						"showGoButtonOnFilterBar": true,
 						"enableTableFilterInPageVariant": true,
-						"tableType": "ResponsiveTable",
+						"tableType": "AnalyticTable",
 						"multiSelect": false,
 						"autoHide": true,
 						"smartVariantManagement": true,
