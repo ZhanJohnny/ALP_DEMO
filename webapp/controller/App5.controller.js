@@ -1,34 +1,62 @@
 sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 	onInit: function () {
-		
-		var firstDay = new Date(2020, 0, 1);
-		
-		function totalWeeks() {
-			var endYear = new Date(firstDay.getFullYear(), 11, 31, 23, 59, 59, 999);
-			var msPerWeek = 7* 24 * 60 * 60 * 1000;
-			var weeks = Math.round((endYear.getTime() - firstDay.getTime()) / msPerWeek);
-			
-            function getTotalWeeks() {
-            	return weeks;
-            }
-            
-            return getTotalWeeks;
+
+		var today = new Date();
+		var currentMonth = today.getMonth();
+		var currentYear = today.getFullYear();
+		var firstDateOfYear = new Date(currentYear, 0, 1);
+		var firstDayOfYear = firstDateOfYear.getDay();
+		var endDateOfYear = new Date(currentYear, 11, 31, 23, 59, 59, 999);
+		var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+		function getTotalWeeks() {
+			var msPerWeek = 7 * 24 * 60 * 60 * 1000;
+			var weeks = Math.round((endDateOfYear.getTime() - firstDateOfYear.getTime()) / msPerWeek);
+
+			function returnTotalWeeks() {
+				return weeks;
+			}
+
+			return returnTotalWeeks;
+		}
+
+		function getTotalDays() {
+			var msPerDay = 24 * 60 * 60 * 1000;
+			var days = Math.round((endDateOfYear.getTime() - firstDateOfYear.getTime()) / msPerDay);
+
+			function returnTotalDays() {
+				return days;
+			}
+
+			return returnTotalDays;
+		}
+
+		Date.prototype.addDays = function (days) {
+			var date = new Date(this.valueOf());
+			date.setDate(date.getDate() + days);
+			return date;
 		};
-		
-		var result = totalWeeks();
+
+		var result = getTotalWeeks();
 		var finalWeeks = result();
-		
+
+		var calLastDateOfYear = firstDateOfYear.addDays(7 * finalWeeks);
+		if (calLastDateOfYear < endDateOfYear) {
+			finalWeeks = finalWeeks + 2;
+		} else {
+			finalWeeks = finalWeeks + 1;
+		}
+
 		var aColumnData = [];
 		var col = "cw";
-		for (var x = 0; x < finalWeeks; x++) {
-			col = col + x;
-			// aColumnData.columnName = col.concat("Week", x);
-			aColumnData[x] = {
-				columnName: col
-			};
-			col = "cw";
-		};
-		
+		// for (var x = 1; x < finalWeeks; x++) {
+		// 	col = col + x;
+		// 	aColumnData[x] = {
+		// 		columnName: col
+		// 	};
+		// 	col = "cw";
+		// }
+
 		var aRowData = [];
 		var item = {};
 		for (var i = 0; i < 5; i++) {
@@ -37,48 +65,10 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 				item[col] = col.concat("Row", i);
 				col = "cw";
 			}
-			
+
 			aRowData.push(item);
 			item = {};
-		};
-		
-
-		var columnData = [{
-			columnName: "supplier"
-		}, {
-			columnName: "street"
-		}, {
-			columnName: "city"
-		}, {
-			columnName: "phone"
-		}];
-
-		var rowData = [{
-			supplier: "Titanium",
-			street: "401 23rd St",
-			city: "Port Angeles",
-			phone: "5682-121-828"
-		}, {
-			supplier: "Technocom",
-			street: "51 39th St",
-			city: "Smallfield",
-			phone: "5682-121-826"
-		}, {
-			supplier: "Titanium",
-			street: "40 21st St",
-			city: "Meridian",
-			phone: "5682-121-827"
-		}, {
-			supplier: "Red Point Stores",
-			street: "451 55th St",
-			city: "Bethesda",
-			phone: "5682-121-829"
-		}, {
-			supplier: "Very Best Screens",
-			street: "123 72nd St",
-			city: "McLean",
-			phone: "5682-121-829"
-		}];
+		}
 
 		var oTable = this.getView().byId("DYNTAB");
 		/*var oTable = new sap.ui.table.Table({
@@ -94,28 +84,114 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 			columns: aColumnData
 		});
 
-		oTable.setModel(oModel);
+		// oTable.setModel(oModel);
 
-		oTable.bindColumns("/columns", function (sId, oContext) {
-			var columnName = oContext.getObject().columnName;
-			return new sap.ui.table.Column({
-				label: columnName,
-				template: columnName,
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.m.Label({
+				text: "zone"
+			}),
+			template: new sap.m.Label({
+				text: "{zone}"
+			}),
+			sortProperty: "zone"
+		}));
+
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.m.Label({
+				text: "country"
+			}),
+			multiLabels: [
+				new sap.m.Label({
+					text: "Month"
+				}),
+				new sap.m.Label({
+					text: "Week"
+				})
+			],
+			template: new sap.m.Label({
+				text: "{country}"
+			})
+		}));
+
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.m.Label({
+				text: "total",
+				textAlign: "Center",
+				width: "100%"
+			}),
+			template: new sap.m.Label({
+				text: "{total}"
+			})
+		}));
+
+		var multiCol = currentYear;
+		var daysOfFirstWeek = 6 - firstDayOfYear;
+
+		for (var x = 1; x < finalWeeks; x++) {
+			col = col + x;
+			aColumnData[x] = {
+				columnName: col
+			};
+
+			if (x === 1) {
+				var satOfWeek = firstDateOfYear.addDays(daysOfFirstWeek);
+			} else {
+				satOfWeek = satOfWeek.addDays(7);
+			}
+
+			var monthOfWeek = satOfWeek.getMonth();
+
+			if (x === finalWeeks - 1) {
+				multiCol = months[11] + multiCol;
+			} else {
+				multiCol = months[monthOfWeek] + multiCol;
+			}
+
+			oTable.addColumn(new sap.ui.table.Column({
+				label: new sap.m.Label({
+					text: col
+				}),
 				multiLabels: [
 					new sap.m.Label({
-						text: "Contact",
-						textAlign:"Center"
+						text: multiCol
 					}),
 					new sap.m.Label({
-						text: columnName
+						text: col,
+						textAlign: "Center",
+						width: "100%"
 					})
 				],
-				sortProperty: columnName,
-				filterProperty: columnName,
-				headerSpan: 4
-			});
-		});
+				template: new sap.m.Input({
+						value: col
+					})
+					// headerSpan: 5
+			}));
 
+			col = "cw";
+			multiCol = currentYear;
+		}
+
+		// oTable.bindColumns("/columns", function (sId, oContext) {
+		// 	var columnName = oContext.getObject().columnName;
+		// 	return new sap.ui.table.Column({
+		// 		label: columnName,
+		// 		template: columnName,
+		// 		multiLabels: [
+		// 			new sap.m.Label({
+		// 				text: "Contact",
+		// 				textAlign:"Center"
+		// 			}),
+		// 			new sap.m.Label({
+		// 				text: columnName
+		// 			})
+		// 		],
+		// 		sortProperty: columnName,
+		// 		filterProperty: columnName,
+		// 		headerSpan: 4
+		// 	});
+		// });
+
+		oTable.setModel(oModel);
 		oTable.bindRows("/rows");
 
 	}
