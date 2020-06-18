@@ -1,22 +1,51 @@
 sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 	onInit: function () {
 
-		var firstDay = new Date(2020, 0, 1);
+		var today = new Date();
+		var currentMonth = today.getMonth();
+		var currentYear = today.getFullYear();
+		var firstDateOfYear = new Date(currentYear, 0, 1);
+		var firstDayOfYear = firstDateOfYear.getDay();
+		var endDateOfYear = new Date(currentYear, 11, 31, 23, 59, 59, 999);
+		var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-		function totalWeeks() {
-			var endYear = new Date(firstDay.getFullYear(), 11, 31, 23, 59, 59, 999);
+		function getTotalWeeks() {
 			var msPerWeek = 7 * 24 * 60 * 60 * 1000;
-			var weeks = Math.round((endYear.getTime() - firstDay.getTime()) / msPerWeek);
+			var weeks = Math.round((endDateOfYear.getTime() - firstDateOfYear.getTime()) / msPerWeek);
 
-			function getTotalWeeks() {
+			function returnTotalWeeks() {
 				return weeks;
 			}
 
-			return getTotalWeeks;
+			return returnTotalWeeks;
 		}
 
-		var result = totalWeeks();
+		function getTotalDays() {
+			var msPerDay = 24 * 60 * 60 * 1000;
+			var days = Math.round((endDateOfYear.getTime() - firstDateOfYear.getTime()) / msPerDay);
+
+			function returnTotalDays() {
+				return days;
+			}
+
+			return returnTotalDays;
+		}
+
+		Date.prototype.addDays = function (days) {
+			var date = new Date(this.valueOf());
+			date.setDate(date.getDate() + days);
+			return date;
+		};
+
+		var result = getTotalWeeks();
 		var finalWeeks = result();
+
+		var calLastDateOfYear = firstDateOfYear.addDays(7 * finalWeeks);
+		if (calLastDateOfYear < endDateOfYear) {
+			finalWeeks = finalWeeks + 2;
+		} else {
+			finalWeeks = finalWeeks + 1;
+		}
 
 		var aColumnData = [];
 		var col = "cw";
@@ -95,8 +124,8 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 			})
 		}));
 
-		var multiCol = "2020";
-		var z = "0";
+		var multiCol = currentYear;
+		var daysOfFirstWeek = 6 - firstDayOfYear;
 
 		for (var x = 1; x < finalWeeks; x++) {
 			col = col + x;
@@ -104,47 +133,18 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 				columnName: col
 			};
 
-			if ((x - 1) % 4 === 0) {
-				z++;
-				switch (z) {
-				case 1:
-					multiCol = multiCol.concat("Jan");
-					break;
-				case 2:
-					multiCol = multiCol.concat("Feb");
-					break;
-				case 3:
-					multiCol = multiCol.concat("Mar");
-					break;
-				case 4:
-					multiCol = multiCol.concat("Apr");
-					break;
-				case 5:
-					multiCol = multiCol.concat("May");
-					break;
-				case 6:
-					multiCol = multiCol.concat("Jun");
-					break;
-				case 7:
-					multiCol = multiCol.concat("Jul");
-					break;
-				case 8:
-					multiCol = multiCol.concat("Aug");
-					break;
-				case 9:
-					multiCol = multiCol.concat("Sep");
-					break;
-				case 10:
-					multiCol = multiCol.concat("Oct");
-					break;
-				case 11:
-					multiCol = multiCol.concat("Nov");
-					break;
-				case 12:
-					multiCol = multiCol.concat("Dec");
-					break;
-				}
+			if (x === 1) {
+				var satOfWeek = firstDateOfYear.addDays(daysOfFirstWeek);
+			} else {
+				satOfWeek = satOfWeek.addDays(7);
+			}
 
+			var monthOfWeek = satOfWeek.getMonth();
+
+			if (x === finalWeeks - 1) {
+				multiCol = months[11] + multiCol;
+			} else {
+				multiCol = months[monthOfWeek] + multiCol;
 			}
 
 			oTable.addColumn(new sap.ui.table.Column({
@@ -162,13 +162,13 @@ sap.ui.controller("IBSO.ALP_DEMO.controller.App5", {
 					})
 				],
 				template: new sap.m.Input({
-					value: col
-				}),
-				headerSpan: 4
+						value: col
+					})
+					// headerSpan: 5
 			}));
 
 			col = "cw";
-			multiCol = "2020";
+			multiCol = currentYear;
 		}
 
 		// oTable.bindColumns("/columns", function (sId, oContext) {
