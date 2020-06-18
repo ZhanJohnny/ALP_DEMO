@@ -167,10 +167,10 @@
 							"fragmentName": "IBSO.ALP_DEMO.ext.fragment.Customfilter",
 							"type": "XML"
 						},
-						"ResponsiveTableColumnsExtension|SEPMRA_C_PD_ProductSalesData": {
-							"type": "XML",
+						"AnalyticTableColumnsExtension|SEPMRA_C_PD_ProductSalesData": {
 							"className": "sap.ui.core.Fragment",
-							"fragmentName": "IBSO.ALP_DEMO.ext.fragment.customtable"
+							"fragmentName": "IBSO.ALP_DEMO.ext.fragment.customtable",
+							"type": "XML"
 						},
 						"AnalyticalListPageContentViewExtension": {
 							"className": "sap.ui.core.mvc.View",
@@ -206,7 +206,7 @@
 						"condensedTableLayout": true,
 						"showGoButtonOnFilterBar": true,
 						"enableTableFilterInPageVariant": true,
-						"tableType": "AnalyticTable",
+						"tableType": "AnalyticalTable",
 						"multiSelect": false,
 						"autoHide": true,
 						"smartVariantManagement": true,
